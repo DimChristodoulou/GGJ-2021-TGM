@@ -5,16 +5,12 @@ using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour{
-    public GameObject activeName;
-    public GameObject activeText;
-
     public GameObject interactionText;
+    public bool IsInDialog = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        activeName.SetActive(false);
-        activeText.SetActive(false);
         interactionText.SetActive(false);
     }
 
@@ -26,21 +22,43 @@ public class Player : MonoBehaviour{
 
     public void OnTriggerStay(Collider other){
         if (other.GetComponent<DialogueTrigger>()){
-            interactionText.SetActive(true);
-            interactionText.GetComponent<TextMeshProUGUI>().text = "Press F to talk to " + other.GetComponent<DialogueTrigger>().dialogue.activeCharacterName;
+            SetInteractionText("Press F to talk to " + other.gameObject.name);
             
-            if (Input.GetKeyDown(KeyCode.F)){
-                activeName.SetActive(true);
-                activeText.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F) && IsInDialog == false){
+                IsInDialog = true;
                 gameObject.GetComponent<PlayerMovement>().speed = 0;
+                DisablePlayerInteractions();
+                other.GetComponent<DialogueTrigger>().TriggerDialogue();
             }
         }
+        else if (other.GetComponent<Readable>()){
+            SetInteractionText("Press F to read the " + other.gameObject.name);
+            
+            if (Input.GetKeyDown(KeyCode.F)){
+                gameObject.GetComponent<PlayerMovement>().speed = 0;
+                DisablePlayerInteractions();
+                other.GetComponent<Readable>().StartInteraction();
+            }
+        }
+    }
+
+    private void SetInteractionText(String text){
+        interactionText.SetActive(true);
+        interactionText.GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void OnTriggerExit(Collider other){
         interactionText.GetComponent<TextMeshProUGUI>().text = "";
         interactionText.SetActive(false);
-        activeName.SetActive(false);
-        activeText.SetActive(false);
+    }
+
+    public static void EnablePlayerInteractions(){
+        Cursor.lockState = CursorLockMode.Locked;
+        Camera.main.gameObject.GetComponent<MouseLook>().enabled = true;
+    }
+    
+    public static void DisablePlayerInteractions(){
+        Cursor.lockState = CursorLockMode.None;
+        Camera.main.gameObject.GetComponent<MouseLook>().enabled = false;
     }
 }

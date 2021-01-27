@@ -7,5 +7,5 @@ public class Dialogue{
     public string activeCharacterName;
     
     [TextArea]
-    public string[] sentence;
+    public string sentence;
 }

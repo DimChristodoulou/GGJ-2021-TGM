@@ -10,20 +10,15 @@ public class PostProcessManager : MonoBehaviour{
     public GameObject volume;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start(){ }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if (Input.GetKeyDown(KeyCode.C)){
             ColorAdjustments colorGrading;
             Volume globalPostProcessingVolume = volume.GetComponent<Volume>();
-            
-            if(globalPostProcessingVolume.profile.TryGet(out colorGrading)){
-                
+
+            if (globalPostProcessingVolume.profile.TryGet(out colorGrading)){
                 if (colorGrading.saturation.value == 0f){
                     colorGrading.saturation.Override(-100f);
                 }
