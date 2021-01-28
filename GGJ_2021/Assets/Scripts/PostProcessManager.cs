@@ -8,6 +8,7 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class PostProcessManager : MonoBehaviour{
     public GameObject volume;
+    public Volume chromaVolume;
 
     // Start is called before the first frame update
     void Start(){ }

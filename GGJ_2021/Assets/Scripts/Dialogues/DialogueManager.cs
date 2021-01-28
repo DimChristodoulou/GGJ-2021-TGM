@@ -6,9 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour{
-    
+
+    public GameObject activePanel;
     public GameObject activeName;
     public GameObject activeText;
+    public GameObject displayNextSentenceButton;
 
     public Queue<Tuple<String, String>> sentences;
 
@@ -17,6 +19,7 @@ public class DialogueManager : MonoBehaviour{
     // Start is called before the first frame update
     void Start()
     {
+        activePanel.SetActive(false);
         activeName.SetActive(false);
         activeText.SetActive(false);
 
@@ -30,10 +33,10 @@ public class DialogueManager : MonoBehaviour{
     }
 
     public void StartDialogue(List<Dialogue> dialogue){
-        Debug.Log("started");
-        
+        activePanel.SetActive(true);
         activeName.SetActive(true);
         activeText.SetActive(true);
+        displayNextSentenceButton.SetActive(true);
         
         foreach (Dialogue sentence in dialogue){
             sentences.Enqueue(new Tuple<string, string>(sentence.activeCharacterName, sentence.sentence));
@@ -43,7 +46,6 @@ public class DialogueManager : MonoBehaviour{
     }
 
     public void DisplayNextSentence(){
-        Debug.Log("hi");
         if (sentences.Count == 0){
             EndDialogue();
             return;
@@ -51,7 +53,9 @@ public class DialogueManager : MonoBehaviour{
 
         Tuple<String, String> sentence = sentences.Dequeue();
         activeName.GetComponent<TextMeshProUGUI>().text = sentence.Item1;
+        activeName.GetComponent<TextMeshProUGUI>().color = Color.cyan;
         activeText.GetComponent<TextMeshProUGUI>().text = sentence.Item2;
+        activeText.GetComponent<TextMeshProUGUI>().color = Color.black;
     }
 
     public void EndDialogue(){
@@ -59,7 +63,10 @@ public class DialogueManager : MonoBehaviour{
         activeText.GetComponent<TextMeshProUGUI>().text = "";
         activeName.SetActive(false);
         activeText.SetActive(false);
+        activePanel.SetActive(false);
+        displayNextSentenceButton.SetActive(false);
         Player.EnablePlayerInteractions();
         FindObjectOfType<PlayerMovement>().speed = 2.6f;
+        Player._isInteractingWithObject = false;
     }
 }

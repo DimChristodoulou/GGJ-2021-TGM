@@ -68,4 +68,12 @@ public class BookManager : MonoBehaviour
             leftPageButton.SetActive(false);
         }
     }
+
+    public void CloseBook(){
+        bookPanel.SetActive(false);
+        
+        Player.EnablePlayerInteractions();
+        FindObjectOfType<PlayerMovement>().speed = 2.6f;
+        Player._isInteractingWithObject = false;
+    }
 }

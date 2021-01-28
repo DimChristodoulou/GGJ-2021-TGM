@@ -6,9 +6,14 @@
     <e p="D:\Unity Games\GGJ-2021-TGM\GGJ_2021" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="AllSkyFree" t="Include">
-          <e p="AllSkyFree_Menu.cs" t="Include" />
-          <e p="AllSkyFree_Readme.txt" t="Include" />
+        <e p="Samples" t="Include">
+          <e p="Terrain Tools" t="Include">
+            <e p="0.1.0-preview" t="Include">
+              <e p="Terrain Assets" t="Include">
+                <e p="ThirdPartyNotices.txt" t="Include" />
+              </e>
+            </e>
+          </e>
         </e>
         <e p="Scripts" t="Include">
           <e p="BookManager.cs" t="Include" />
@@ -17,10 +22,18 @@
             <e p="DialogueManager.cs" t="Include" />
             <e p="DialogueTrigger.cs" t="Include" />
           </e>
-          <e p="MouseLook.cs" t="Include" />
-          <e p="Player.cs" t="Include" />
-          <e p="PlayerMovement.cs" t="Include" />
+          <e p="PauseManager.cs" t="Include" />
+          <e p="Player" t="Include">
+            <e p="MouseLook.cs" t="Include" />
+            <e p="Player.cs" t="Include" />
+            <e p="PlayerMovement.cs" t="Include" />
+          </e>
           <e p="PostProcessManager.cs" t="Include" />
+          <e p="Puzzles" t="Include">
+            <e p="Dot.cs" t="Include" />
+            <e p="DotsPuzzle.cs" t="Include" />
+            <e p="ResetPuzzle.cs" t="Include" />
+          </e>
           <e p="Readable.cs" t="Include" />
           <e p="Scriptable Objects" t="Include">
             <e p="Book.cs" t="Include" />
