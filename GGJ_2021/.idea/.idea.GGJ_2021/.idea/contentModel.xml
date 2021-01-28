@@ -30,6 +30,7 @@
           </e>
           <e p="PostProcessManager.cs" t="Include" />
           <e p="Puzzles" t="Include">
+            <e p="DoorPuzzle.cs" t="Include" />
             <e p="Dot.cs" t="Include" />
             <e p="DotsPuzzle.cs" t="Include" />
             <e p="ResetPuzzle.cs" t="Include" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,8 +27,9 @@ public class Dot : MonoBehaviour, IPointerDownHandler{
         puzzle.lineRendererForCurrentPuzzle.GetComponent<LineRenderer>().SetPosition(puzzle.dots.Count-1, puzzle.dots[puzzle.dots.Count-1].transform.localPosition);
         
         if (puzzle.dots.Count == puzzle.correctDots.Count){
-            foreach (GameObject dot in puzzle.dots){
-                if (puzzle.correctDots[puzzle.dots.IndexOf(dot)] == dot){
+            List<GameObject> tempList = puzzle.dots.Distinct().ToList();
+            foreach (GameObject dot in tempList){
+                if (puzzle.correctDots[tempList.IndexOf(dot)] == dot){
                     puzzle.CountCorrectDots++;
                 }
             }

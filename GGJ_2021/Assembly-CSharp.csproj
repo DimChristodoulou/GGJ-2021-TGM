@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PostProcessManager.cs" />
+     <Compile Include="Assets\Scripts\Puzzles\DoorPuzzle.cs" />
      <Compile Include="Assets\Scripts\Puzzles\Dot.cs" />
      <Compile Include="Assets\Scripts\Puzzles\DotsPuzzle.cs" />
      <Compile Include="Assets\Scripts\Puzzles\ResetPuzzle.cs" />
