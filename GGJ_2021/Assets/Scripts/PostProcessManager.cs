@@ -15,7 +15,7 @@ public class PostProcessManager : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        if (Input.GetKeyDown(KeyCode.C)){
+        /*if (Input.GetKeyDown(KeyCode.C)){
             ColorAdjustments colorGrading;
             Volume globalPostProcessingVolume = volume.GetComponent<Volume>();
 
@@ -27,6 +27,6 @@ public class PostProcessManager : MonoBehaviour{
                     colorGrading.saturation.Override(0f);
                 }
             }
-        }
+        }*/
     }
 }

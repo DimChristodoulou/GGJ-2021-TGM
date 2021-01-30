@@ -7,6 +7,12 @@ TagManager:
   - Star
   - Reset
   - Door
+  - DoorPuzzle
+  - ObservatoryDoor
+  - Digits
+  - ObservatoryPanel
+  - ObservatoryDigits
+  - Telescope
   layers:
   - Default
   - TransparentFX

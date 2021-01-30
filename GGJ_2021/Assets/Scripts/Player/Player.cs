@@ -3,39 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class Player : MonoBehaviour{
     public GameObject interactionText;
     public bool IsInDialog = false;
+    public GameObject volume;
 
     private Transform _cameraInitialTransform;
     private Vector3 _cameraInitialPos;
     private Quaternion _cameraInitialRot;
 
     public static bool _isInteractingWithObject = false;
+    public static bool hasFinishedGame = false;
     
     private bool _isMovingCamera = false;
     private Transform _cameraLookAt;
     private bool _isInteractingWithPuzzle = false;
 
+    private GameObject imageIncompleteGame, imageCompleteGame;
+
     private void Awake(){
         _cameraInitialPos = Camera.main.transform.position;
         _cameraInitialRot = Camera.main.transform.rotation;
+        imageIncompleteGame = GameObject.Find("imageIncompleteGame");
+        imageCompleteGame = GameObject.Find("imageCompleteGame");
+        imageCompleteGame.SetActive(false);
+        imageIncompleteGame.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start(){
         _cameraInitialTransform = Camera.main.transform;
         interactionText.SetActive(false);
+        DisableCursor();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if (_isMovingCamera){
             Camera.main.transform.LookAt(_cameraLookAt);
 
-            if (_cameraLookAt.transform.rotation.eulerAngles.y == 0){
+            if (_cameraLookAt.gameObject.CompareTag("DoorPuzzle")){
+                Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(0, 0, -0.5f), 1 * Time.deltaTime);
+            }
+            else if (_cameraLookAt.gameObject.CompareTag("ObservatoryPanel")){
+                /*Debug.Log(_cameraLookAt.gameObject.name);
+                Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(0f, 0f, 0f), 1 * Time.deltaTime);*/
+            }
+            else if (_cameraLookAt.transform.rotation.eulerAngles.y == 0){
                 Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(0, 0, 0.75f), 1 * Time.deltaTime);
             }
             else if (_cameraLookAt.transform.rotation.eulerAngles.y == 90){
@@ -47,7 +64,7 @@ public class Player : MonoBehaviour{
             }
         }
 
-        if (_isInteractingWithPuzzle && Input.GetKeyDown(KeyCode.Escape)){
+        if (_isInteractingWithPuzzle && Input.GetKeyDown(KeyCode.E)){
             //Delegate control back to player - also move camera back
             _isMovingCamera = false;
             _isInteractingWithObject = false;
@@ -83,7 +100,7 @@ public class Player : MonoBehaviour{
                 other.GetComponent<Readable>().StartInteraction();
             }
         }
-        else if (other.GetComponent<DotsPuzzle>()){
+        else if (other.GetComponent<DotsPuzzle>() || other.gameObject.CompareTag("DoorPuzzle") || other.gameObject.CompareTag("ObservatoryPanel")){
             if (!_isInteractingWithObject){
                 SetInteractionText("Press F to inspect");
             }
@@ -110,6 +127,42 @@ public class Player : MonoBehaviour{
             }
             
         }
+        else if (other.gameObject.CompareTag("Telescope")){
+            SetInteractionText("Press F to look inside the telescope");
+
+            if (Input.GetKeyDown(KeyCode.F)){
+                ToggleTelescopeImage();
+            }
+            else if (Input.GetKeyDown(KeyCode.E)){
+                DisableTelescopeImages();
+            }
+        }
+    }
+
+    private void ToggleTelescopeImage(){
+        if (hasFinishedGame){
+            imageCompleteGame.SetActive(true);
+            imageIncompleteGame.SetActive(false);
+            
+            Volume globalPostProcessingVolume = volume.GetComponent<Volume>();
+            ColorAdjustments colorGrading;
+
+            if (globalPostProcessingVolume.profile.TryGet(out colorGrading)){
+                if (colorGrading.saturation.value == -100f){
+                    colorGrading.saturation.Override(0f);
+                }
+            }
+            
+        }
+        else{
+            imageCompleteGame.SetActive(false);
+            imageIncompleteGame.SetActive(true);
+        }
+    }
+
+    private void DisableTelescopeImages(){
+        imageCompleteGame.SetActive(false);
+        imageIncompleteGame.SetActive(false);
     }
 
     private void HandlePlayerInteractionWithObject(){
