@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour{
     public GameObject pauseMenuPanel;
@@ -34,6 +35,6 @@ public class PauseManager : MonoBehaviour{
     }
 
     public void Quit(){
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 }

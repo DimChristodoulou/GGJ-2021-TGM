@@ -67,6 +67,10 @@ public class BookManager : MonoBehaviour
         if (_currentPage == 0) {
             leftPageButton.SetActive(false);
         }
+        
+        if (_currentPage == _numberOfPages-1) {
+            rightPageButton.SetActive(false);
+        }
     }
 
     public void CloseBook(){

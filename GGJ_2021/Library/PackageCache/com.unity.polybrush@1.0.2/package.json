@@ -33,11 +33,11 @@
   },
   "relatedPackages": {},
   "upmCi": {
-    "footprint": "cbaa090c5844c71d22b9c618a520ab0cdce89bf4"
+    "footprint": "0b4480777f7e7b27fbcfc7bdf93a9636d6f14756"
   },
   "repository": {
     "url": "https://github.com/Unity-Technologies/polybrush.git",
     "type": "git",
-    "revision": "3b3ff63449cf58a2f50f39220898e73887b0a465"
+    "revision": "55f0abdbad1d1c08e999a55237499f00b0ce91b9"
   }
 }

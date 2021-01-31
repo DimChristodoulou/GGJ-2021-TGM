@@ -22,13 +22,15 @@ public class Player : MonoBehaviour{
     private Transform _cameraLookAt;
     private bool _isInteractingWithPuzzle = false;
 
-    private GameObject imageIncompleteGame, imageCompleteGame;
+    private GameObject imageIncompleteGame, imageCompleteGame, telescopeBackground;
 
     private void Awake(){
         _cameraInitialPos = Camera.main.transform.position;
         _cameraInitialRot = Camera.main.transform.rotation;
         imageIncompleteGame = GameObject.Find("imageIncompleteGame");
         imageCompleteGame = GameObject.Find("imageCompleteGame");
+        telescopeBackground = GameObject.Find("TelescopeBackground");
+        telescopeBackground.SetActive(false);
         imageCompleteGame.SetActive(false);
         imageIncompleteGame.SetActive(false);
     }
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour{
     void Update(){
         if (_isMovingCamera){
             Camera.main.transform.LookAt(_cameraLookAt);
-
+            
             if (_cameraLookAt.gameObject.CompareTag("DoorPuzzle")){
                 Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(0, 0, -0.5f), 1 * Time.deltaTime);
             }
@@ -57,6 +59,9 @@ public class Player : MonoBehaviour{
             }
             else if (_cameraLookAt.transform.rotation.eulerAngles.y == 90){
                 Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(0.75f, 0, 0), 1 * Time.deltaTime);
+            }
+            else if (_cameraLookAt.transform.rotation.eulerAngles.y == 270){
+                Camera.main.transform.position = Vector3.Lerp(_cameraInitialTransform.position, _cameraLookAt.position - new Vector3(-0.75f, 0, 0), 1 * Time.deltaTime);
             }
 
             if (Camera.main.transform.position == _cameraLookAt.position){
@@ -110,10 +115,7 @@ public class Player : MonoBehaviour{
                 
                 _cameraInitialPos = Camera.main.transform.position;
                 _cameraInitialRot = Camera.main.transform.rotation;
-                
-                Debug.Log(_cameraInitialPos);
-                Debug.Log(_cameraInitialRot);
-                
+
                 _isInteractingWithPuzzle = true;
                 _cameraLookAt = other.transform;
                 _isMovingCamera = true;
@@ -140,6 +142,8 @@ public class Player : MonoBehaviour{
     }
 
     private void ToggleTelescopeImage(){
+        telescopeBackground.SetActive(true);
+        
         if (hasFinishedGame){
             imageCompleteGame.SetActive(true);
             imageIncompleteGame.SetActive(false);
@@ -161,6 +165,7 @@ public class Player : MonoBehaviour{
     }
 
     private void DisableTelescopeImages(){
+        telescopeBackground.SetActive(false);
         imageCompleteGame.SetActive(false);
         imageIncompleteGame.SetActive(false);
     }
