@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Andreas Avoukatos - Music Design
+  m_text: Andreas Avoukatos - Music Production
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: fe75347916bd32148a676b8d6f01011b, type: 2}
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -0.52482605}
   m_textInfo:
     textComponent: {fileID: 1907731519}
-    characterCount: 32
+    characterCount: 36
     spriteCount: 0
     spaceCount: 4
     wordCount: 5

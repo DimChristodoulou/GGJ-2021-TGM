@@ -42,6 +42,7 @@
             <e p="Book.cs" t="Include" />
           </e>
           <e p="SimpleCameraController.cs" t="Include" />
+          <e p="VolumeSlider.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">

@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour{
         activePanel.SetActive(true);
         activeName.SetActive(true);
         activeText.SetActive(true);
-        displayNextSentenceButton.SetActive(true);
+        //displayNextSentenceButton.SetActive(true);
         
         foreach (Dialogue sentence in dialogue){
             sentences.Enqueue(new Tuple<string, string>(sentence.activeCharacterName, sentence.sentence));
